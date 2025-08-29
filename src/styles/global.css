@@ -30,3 +30,8 @@
     display: block;
     margin-inline: auto;
 }
+
+
+@utility font-secondary {
+    font-family: "PT Sans", sans-serif;
+}
