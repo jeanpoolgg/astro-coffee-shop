@@ -3,4 +3,16 @@
 
 @theme {
     --default-font-family: "Outfit", sans-serif;
+
+    --color-coffee-50: #fcf8ee;
+    --color-coffee-100: #ebe7de;
+    --color-coffee-200: #ead59d;
+    --color-coffee-300: #dfbb6a;
+    --color-coffee-400: #d7a648;
+    --color-coffee-500: #ce8a32;
+    --color-coffee-600: #b66b29;
+    --color-coffee-700: #975026;
+    --color-coffee-800: #7c3f24;
+    --color-coffee-900: #5e311e;
+    --color-coffee-950: #3a1a0e;
 }
