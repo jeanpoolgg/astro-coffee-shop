@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro"
 import { BaseWPSchema } from "@/types"
+import { inferRemoteSize, Picture } from "astro:assets"
 
 const baseUrl = import.meta.env.WP_API_URL
 const response = await fetch(`${baseUrl}/pages?slug=proceso`)
@@ -10,17 +11,18 @@ const processKeys = Array.from({length: Object.keys(data.acf).length - 1}, (_, i
 ---
 
 <Layout title={data.title.rendered} subtitle={data.acf.subtitle} bgImage={data.featured_images.medium_large.url} >
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10" >
-       
-        <div class="text-xl space-y-3 mt-10 lg:mt-0" set:html={data.content.rendered}></div>
+    <div class="text-xl space-y-3 mt-10 lg:mt-0" set:html={data.content.rendered}></div>
 
         <div class="mt-10 space-y-10">
-            { processKeys.map((key) => {
-                const {title, description} = data.acf[key]
-                return (
-                    <section class="flex" >
-                        <div class="w-full lg:w-1/2" >
+            { processKeys.map( async (key) => {
+                const {title, description, image} = data.acf[key]
+                const {width, height} = await inferRemoteSize(image)
 
+                return (
+                    <section class="flex flex-col lg:flex-row lg:items-center gap-10" >
+                        <div class="w-full lg:w-1/2" >
+                            <Picture src={image} alt={`Imagen de ${data.title.rendered}`}
+                            width={width} height={height} />
                         </div>
                         <div class="w-full lg:w-1/2" >
                             <h1 class="text-coffee-900 font-black text-4xl pb-10 uppercase">{title}</h1>
@@ -30,5 +32,4 @@ const processKeys = Array.from({length: Object.keys(data.acf).length - 1}, (_, i
                 )
             }) }
         </div>
-    </div>
 </Layout>
