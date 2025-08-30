@@ -22,3 +22,13 @@ export const getPageProceso = async () => {
     return { pageTitle, acf, image, content }
 }
 
+
+
+export const getPageBlog = async () => {
+    const response = await fetch(`${baseUrl}/pages?slug=blog`)
+    if (!response.ok) throw new Error("Failed to fetch page blog")
+    const [data] = await response.json()
+    const dataAboutUs = BaseWPSchema.parse(data)
+    const { title: { rendered: pageTitle }, acf: { subtitle }, featured_images: { medium_large: image }, content: { rendered: content } } = dataAboutUs
+    return { pageTitle, subtitle, image, content }
+}
