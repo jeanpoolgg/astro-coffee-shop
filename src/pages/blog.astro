@@ -1,4 +1,5 @@
 ---
+import BlogPosts from "@/components/blog/BlogPosts.astro";
 import Layout from "@/layouts/Layout.astro";
 
 import { getPageBlog } from "@/lib/wp";
@@ -7,4 +8,5 @@ const { pageTitle, subtitle, image, content } = await getPageBlog();
 
 <Layout title={pageTitle} subtitle={subtitle} bgImage={image.url}>
     <div class="text-xl space-y-3 mt-10 lg:mt-0" set:html={content} />
+    <BlogPosts />
 </Layout>
