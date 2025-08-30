@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro"
 import { BaseWPSchema } from "@/types"
+import { Picture } from "astro:assets"
 
 const baseUrl = import.meta.env.WP_API_URL
 const response = await fetch(`${baseUrl}/pages?slug=nosotros`)
@@ -10,6 +11,13 @@ const data = BaseWPSchema.parse(json[0])
 
 <Layout title={data.title.rendered} subtitle={data.acf.subtitle} bgImage={data.featured_images.medium_large.url} >
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10" >
+        <Picture 
+            src={data.featured_images.medium_large.url}
+            alt={`Image de ${data.title.rendered}`}
+            width={data.featured_images.medium_large.width}
+            height={data.featured_images.medium_large.height}
+            formats={['avif', 'webp']}
+        />
         <div class="text-xl space-y-3 mt-10 lg:mt-0" set:html={data.content.rendered}></div>
     </div>
 </Layout>
