@@ -1,14 +1,13 @@
 ---
 interface Props {
-    icon: string
-    text: string
+    icon: string;
+    text: string;
 }
 
-const { icon, text } = Astro.props
-
+const { icon, text } = Astro.props;
 ---
-<div class="py-10 space-y-5 flex flex-col items-center">
-    <img src={icon} alt={`Icono`} class="max-w-52">
-    <h3 class="text-4xl text-coffee-800 font-secondary" >{text}</h3>
-</div>
 
+<div class="py-10 space-y-5 flex flex-col items-center">
+    <img src={icon} alt={`Icono`} class="max-w-52" />
+    <h3 class="text-4xl text-coffee-800 font-secondary">{text}</h3>
+</div>

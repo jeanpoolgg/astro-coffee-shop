@@ -1,32 +1,47 @@
 ---
-import Layout from "@/layouts/Layout.astro"
-import { inferRemoteSize, Picture } from "astro:assets"
-import { getPageProceso } from "@/lib/wp"
- 
-const { pageTitle, acf, image, content } = await getPageProceso(); 
-const processKeys = Array.from({length: Object.keys(acf).length - 1}, (_, i) => `process_${i+1}`)
+import Layout from "@/layouts/Layout.astro";
+import { inferRemoteSize, Picture } from "astro:assets";
+import { getPageProceso } from "@/lib/wp";
+
+const { pageTitle, acf, image, content } = await getPageProceso();
+const processKeys = Array.from(
+    { length: Object.keys(acf).length - 1 },
+    (_, i) => `process_${i + 1}`,
+);
 ---
 
-<Layout title={pageTitle} subtitle={acf.subtitle} bgImage={image.url} >
-    <div class="text-xl space-y-3 mt-10 lg:mt-0" set:html={content}></div>
+<Layout title={pageTitle} subtitle={acf.subtitle} bgImage={image.url}>
+    <div class="text-xl space-y-3 mt-10 lg:mt-0" set:html={content} />
 
-        <div class="mt-10 space-y-10">
-            { processKeys.map( async (key, i) => {
-                const {title, description, image} = acf[key]
-                const {width, height} = await inferRemoteSize(image)
+    <div class="mt-10 space-y-10">
+        {
+            processKeys.map(async (key, i) => {
+                const { title, description, image } = acf[key];
+                const { width, height } = await inferRemoteSize(image);
 
                 return (
-                    <section class="flex flex-col lg:flex-row lg:items-center gap-10" >
-                        <div class={`w-full lg:w-1/2 ${i % 2 === 0 ? 'lg:order-1' : 'lg:order-2'}`} >
-                            <Picture src={image} alt={`Imagen de ${title}`}
-                            width={width} height={height} />
+                    <section class="flex flex-col lg:flex-row lg:items-center gap-10">
+                        <div
+                            class={`w-full lg:w-1/2 ${i % 2 === 0 ? "lg:order-1" : "lg:order-2"}`}
+                        >
+                            <Picture
+                                src={image}
+                                alt={`Imagen de ${title}`}
+                                width={width}
+                                height={height}
+                            />
                         </div>
-                        <div class={`w-full lg:w-1/2 ${i % 2 === 0 ? 'lg:order-2' : 'lg:order-1'}`} >
-                            <h1 class="text-coffee-900 font-black text-4xl pb-10 uppercase">{title}</h1>
-                            <p class="text-lg" >{description}</p>
+                        <div
+                            class={`w-full lg:w-1/2 ${i % 2 === 0 ? "lg:order-2" : "lg:order-1"}`}
+                        >
+                            <h1 class="text-coffee-900 font-black text-4xl pb-10 uppercase">
+                                {title}
+                            </h1>
+                            <p class="text-lg">{description}</p>
                         </div>
                     </section>
-                )
-            }) }
-        </div>
+                );
+            })
+        }
+    </div>
 </Layout>

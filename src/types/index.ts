@@ -25,7 +25,7 @@ export const BaseWPSchema = z.object({
     featured_images: featuredImagesSchema,
     acf: z.object({
         subtitle: z.string()
-    }).catchall(z.any()) // Allow any additional properties
+    })
 })
 
 const processSchema = z.object({

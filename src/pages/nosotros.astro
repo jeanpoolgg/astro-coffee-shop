@@ -1,20 +1,20 @@
 ---
-import Layout from "@/layouts/Layout.astro"
-import { Picture } from "astro:assets"
+import Layout from "@/layouts/Layout.astro";
+import { Picture } from "astro:assets";
 
-import { getPageNosotros } from "@/lib/wp"
-const { pageTitle, subtitle, image, content} = await getPageNosotros(); 
+import { getPageNosotros } from "@/lib/wp";
+const { pageTitle, subtitle, image, content } = await getPageNosotros();
 ---
 
-<Layout title={pageTitle} subtitle={subtitle} bgImage={image.url} >
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10" >
-        <Picture 
+<Layout title={pageTitle} subtitle={subtitle} bgImage={image.url}>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <Picture
             src={image.url}
             alt={`Image de ${pageTitle}`}
             width={image.width}
             height={image.height}
-            formats={['avif', 'webp']}
+            formats={["avif", "webp"]}
         />
-        <div class="text-xl space-y-3 mt-10 lg:mt-0" set:html={content}></div>
+        <div class="text-xl space-y-3 mt-10 lg:mt-0" set:html={content} />
     </div>
 </Layout>
