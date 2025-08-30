@@ -6,6 +6,7 @@ const baseUrl = import.meta.env.WP_API_URL
 const response = await fetch(`${baseUrl}/pages?slug=proceso`)
 const json = await response.json()
 const data = BaseWPSchema.parse(json[0])
+const processKeys = Array.from({length: Object.keys(data.acf).length - 1}, (_, i) => `process_${i+1}`)
 ---
 
 <Layout title={data.title.rendered} subtitle={data.acf.subtitle} bgImage={data.featured_images.medium_large.url} >
@@ -14,7 +15,20 @@ const data = BaseWPSchema.parse(json[0])
         <div class="text-xl space-y-3 mt-10 lg:mt-0" set:html={data.content.rendered}></div>
 
         <div class="mt-10 space-y-10">
-            {}
+            { processKeys.map((key) => {
+                const {title, description} = data.acf[key]
+                return (
+                    <section class="flex" >
+                        <div class="w-full lg:w-1/2" >
+
+                        </div>
+                        <div class="w-full lg:w-1/2" >
+                            <h1 class="text-coffee-900 font-black text-4xl pb-10 uppercase">{title}</h1>
+                            <p class="text-lg" >{description}</p>
+                        </div>
+                    </section>
+                )
+            }) }
         </div>
     </div>
 </Layout>
