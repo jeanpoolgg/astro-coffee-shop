@@ -1,5 +1,12 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from "@/layouts/Layout.astro"
+import { BaseWPSchema } from "@/types"
+
+const baseUrl = import.meta.env.WP_API_URL
+const response = await fetch(`${baseUrl}/pages?slug=nosotros`)
+const json = await response.json()
+const data = BaseWPSchema.parse(json[0])
+console.log(data)
 ---
 
 <Layout title="nosotros" subtitle="" bgImage="" >
