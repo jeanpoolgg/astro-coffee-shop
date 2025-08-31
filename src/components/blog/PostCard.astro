@@ -1,6 +1,7 @@
 ---
 import type { Post } from "@/types";
 import { Picture } from "astro:assets";
+import { formatDate } from "@/helpers"
 
 interface Props {
     post: Post;
@@ -19,7 +20,7 @@ const { post } = Astro.props;
             </a>
         </h3>
         <p>
-            Escrito el: <span class="text-coffee-600">{post.date}</span>
+            Escrito el: <span class="text-coffee-600">{formatDate(post.date)}</span>
         </p>
         <div set:html={post.content.rendered} class="line-clamp-2" />
     </div>
