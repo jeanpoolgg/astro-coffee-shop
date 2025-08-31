@@ -45,3 +45,5 @@ export const PostSchema = BaseWPSchema.omit({
 })
 
 export const PostsSchema = z.array(PostSchema)
+
+export type Post = z.infer<typeof PostSchema>
