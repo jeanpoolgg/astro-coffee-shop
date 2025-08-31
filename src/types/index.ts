@@ -42,6 +42,8 @@ export const ProcessPageSchema = BaseWPSchema.extend({
 
 export const PostSchema = BaseWPSchema.omit({
     acf: true
+}).extend({
+    date: z.string()
 })
 
 export const PostsSchema = z.array(PostSchema)

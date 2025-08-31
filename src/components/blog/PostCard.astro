@@ -18,6 +18,9 @@ const { post } = Astro.props;
                 {post.title.rendered}
             </a>
         </h3>
+        <p>
+            Escrito el: <span class="text-coffee-600">{post.date}</span>
+        </p>
         <div set:html={post.content.rendered} class="line-clamp-2" />
     </div>
 
