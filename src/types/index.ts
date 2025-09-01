@@ -50,6 +50,7 @@ const CategoriesSchema = z.array(CategorySchema)
 export const PostSchema = BaseWPSchema.omit({
     acf: true
 }).extend({
+    slug: z.string(),
     date: z.string(),
     category_details: CategoriesSchema
 })

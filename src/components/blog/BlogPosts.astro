@@ -2,7 +2,6 @@
 import { getPosts } from "@/lib/wp";
 import PostCard from "./PostCard.astro";
 const posts = await getPosts();
-console.log(posts);
 ---
 
 {posts.map((post) => <PostCard post={post} />)}

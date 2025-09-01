@@ -15,7 +15,7 @@ const { post } = Astro.props;
 >
     <div class="lg:col-span-2 space-y-5">
         <h3 class="text-coffee-900 font-black text-4xl uppercase">
-            <a href="">
+            <a href={`/blog/${post.slug}`}>
                 {post.title.rendered}
             </a>
         </h3>
