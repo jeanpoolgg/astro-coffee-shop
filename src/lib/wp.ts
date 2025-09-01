@@ -46,6 +46,6 @@ export const getPost = async (slug?: string) => {
     const response = await fetch(`${baseUrl}/posts?slug=${slug}`)
     if (!response.ok) throw new Error("Failed to fetch post")
     const [json] = await response.json()
-    const post = PostSchema.parse(json)
+    const post = PostSchema.safeParse(json)
     return post
 }

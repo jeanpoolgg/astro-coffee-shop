@@ -9,30 +9,32 @@ export const prerender = false;
 
 const { slug } = Astro.params;
 const post = await getPost(slug);
+if (!post.success) return Astro.redirect("/404");
+const { title, featured_images, date, category_details, content } = post.data;
 ---
 
 <Layout
-    title={post.title.rendered}
-    subtitle={post.title.rendered}
-    bgImage={post.featured_images.medium_large.url}
+    title={title.rendered}
+    subtitle={title.rendered}
+    bgImage={featured_images.medium_large.url}
 >
     <article class="space-y-5 max-w-4xl mx-auto">
-        <PostMeta date={post.date} />
+        <PostMeta date={date} />
         {
-            post.category_details.map((category) => (
+            category_details.map((category) => (
                 <PostCategories name={category.name} />
             ))
         }
         <Picture
-            src={post.featured_images.medium_large.url}
-            alt={`Imagen del Post: ${post.title.rendered}`}
-            width={post.featured_images.medium_large.width}
-            height={post.featured_images.medium_large.height}
+            src={featured_images.medium_large.url}
+            alt={`Imagen del Post: ${title.rendered}`}
+            width={featured_images.medium_large.width}
+            height={featured_images.medium_large.height}
             class="w-full"
         />
 
         <div
-            set:html={post.content.rendered}
+            set:html={content.rendered}
             class="text-lg space-y-3 mt-5 text-pretty"
         />
     </article>
