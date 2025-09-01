@@ -1,0 +1,13 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCategories } from "@/lib/wp";
+
+export const getStaticPaths = (async () => {
+    const categories = await getCategories();
+    return categories.map((category) => ({
+        params: { slug: category.slug },
+    }));
+}) satisfies GetStaticPaths;
+---
+
+<h1>Desde Categoria</h1>

@@ -1,4 +1,4 @@
-import { BaseWPSchema, ProcessPageSchema, PostsSchema, PostSchema } from "@/types"
+import { BaseWPSchema, ProcessPageSchema, PostsSchema, PostSchema, CategoriesSlugSchema } from "@/types"
 
 const baseUrl = import.meta.env.WP_API_URL
 
@@ -48,4 +48,11 @@ export const getPost = async (slug?: string) => {
     const [json] = await response.json()
     const post = PostSchema.safeParse(json)
     return post
+}
+
+export const getCategories = async() => {
+    const response = await fetch(`${baseUrl}/categories?_fields=slug`)
+    const json = await response.json()
+    const categories = CategoriesSlugSchema.parse(json)
+    return categories
 }

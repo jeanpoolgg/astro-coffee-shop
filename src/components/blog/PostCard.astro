@@ -23,7 +23,7 @@ const { post } = Astro.props;
         <PostMeta date={post.date}/>
         {
             post.category_details.map((category) => (
-             <PostCategories name={category.name} />
+             <PostCategories name={category.name} slug={category.slug} />
             ))
         }
         <div set:html={post.content.rendered} class="line-clamp-2 text-lg" />
