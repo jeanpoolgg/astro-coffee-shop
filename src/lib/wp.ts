@@ -1,4 +1,4 @@
-import { BaseWPSchema, ProcessPageSchema, PostsSchema } from "@/types"
+import { BaseWPSchema, ProcessPageSchema, PostsSchema, PostSchema } from "@/types"
 
 const baseUrl = import.meta.env.WP_API_URL
 
@@ -40,4 +40,12 @@ export const getPosts = async () => {
     const data = await response.json()
     const posts = PostsSchema.parse(data)
     return posts
+}
+
+export const getPost = async (slug?: string) => {
+    const response = await fetch(`${baseUrl}/posts?slug=${slug}`)
+    if (!response.ok) throw new Error("Failed to fetch post")
+    const [json] = await response.json()
+    const post = PostSchema.parse(json)
+    return post
 }
