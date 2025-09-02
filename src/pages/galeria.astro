@@ -1,10 +1,11 @@
 ---
+import GalleryGrid from "@/components/galery/GalleryGrid.astro";
 import Layout from "@/layouts/Layout.astro";
 
 import { getPageGaleria } from "@/lib/wp";
-const { pageTitle, subtitle, image } = await getPageGaleria();
+const { pageTitle, subtitle, image, gallery } = await getPageGaleria();
 ---
 
 <Layout title={pageTitle} subtitle={subtitle} bgImage={image.url}>
-
+    <GalleryGrid gallery={gallery} />
 </Layout>

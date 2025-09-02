@@ -1,4 +1,4 @@
-import { BaseWPSchema, ProcessPageSchema, PostsSchema, PostSchema, CategoriesSlugSchema, CategorySchema } from "@/types"
+import { BaseWPSchema, ProcessPageSchema, PostsSchema, PostSchema, CategoriesSlugSchema, CategorySchema, GalleryPageSchema } from "@/types"
 
 const baseUrl = import.meta.env.WP_API_URL
 
@@ -77,7 +77,7 @@ export const getPageGaleria = async () => {
     const response = await fetch(`${baseUrl}/pages?slug=galeria`)
     if (!response.ok) throw new Error("Failed to fetch page galeria")
     const [data] = await response.json()
-    const dataAboutUs = BaseWPSchema.parse(data)
-    const { title: { rendered: pageTitle }, acf: { subtitle }, featured_images: { medium_large: image }} = dataAboutUs
-    return { pageTitle, subtitle, image }
+    const dataAboutUs = GalleryPageSchema.parse(data)
+    const { title: { rendered: pageTitle }, acf: { subtitle }, featured_images: { medium_large: image }, gallery } = dataAboutUs
+    return { pageTitle, subtitle, image, gallery }
 }
