@@ -71,3 +71,13 @@ export const getPostsByCategory = async (id: number) => {
     const posts = PostsSchema.parse(postsJson);
     return posts
 }
+
+
+export const getPageGaleria = async () => {
+    const response = await fetch(`${baseUrl}/pages?slug=galeria`)
+    if (!response.ok) throw new Error("Failed to fetch page galeria")
+    const [data] = await response.json()
+    const dataAboutUs = BaseWPSchema.parse(data)
+    const { title: { rendered: pageTitle }, acf: { subtitle }, featured_images: { medium_large: image }} = dataAboutUs
+    return { pageTitle, subtitle, image }
+}
