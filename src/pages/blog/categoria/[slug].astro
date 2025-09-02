@@ -1,6 +1,8 @@
 ---
 import type { GetStaticPaths } from "astro";
+import Layaout from "@/layouts/Layout.astro";
 import { getCategories, getCategory, getPostsByCategory } from "@/lib/wp";
+import PostCard from "@/components/blog/PostCard.astro";
 
 // Crear rutas dinámicas
 export const getStaticPaths = (async () => {
@@ -18,4 +20,10 @@ const category = await getCategory(slug);
 const posts = await getPostsByCategory(category.id);
 ---
 
-<h1>Desde Categoria</h1>
+<Layaout
+    title={`Post en la Categoría: ${category.name}`}
+    subtitle={`Post en la Categoría: ${category.name}`}
+    bgImage={posts[0].featured_images.full.url}
+>
+    {posts.map((post) => <PostCard post={post} />)}
+</Layaout>
