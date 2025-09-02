@@ -1,4 +1,4 @@
-import { BaseWPSchema, ProcessPageSchema, PostsSchema, PostSchema, CategoriesSlugSchema } from "@/types"
+import { BaseWPSchema, ProcessPageSchema, PostsSchema, PostSchema, CategoriesSlugSchema, CategorySchema } from "@/types"
 
 const baseUrl = import.meta.env.WP_API_URL
 
@@ -50,9 +50,24 @@ export const getPost = async (slug?: string) => {
     return post
 }
 
-export const getCategories = async() => {
+export const getCategories = async () => {
     const response = await fetch(`${baseUrl}/categories?_fields=slug`)
     const json = await response.json()
     const categories = CategoriesSlugSchema.parse(json)
     return categories
+}
+
+export const getCategory = async (slug: string) => {
+    const catRes = await fetch(`${baseUrl}/categories?slug=${slug}`);
+    // Desestructuración de arreglos
+    const [catJson] = await catRes.json();
+    const category = CategorySchema.parse(catJson);
+    return category
+}
+
+export const getPostsByCategory = async (id: number) => {
+    const postsRes = await fetch(`${baseUrl}/posts?categories=${id}`);
+    const postsJson = await postsRes.json();
+    const posts = PostsSchema.parse(postsJson);
+    return posts
 }

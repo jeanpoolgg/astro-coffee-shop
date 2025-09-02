@@ -40,7 +40,8 @@ export const ProcessPageSchema = BaseWPSchema.extend({
     }).catchall(processSchema)
 })
 
-const CategorySchema = z.object({
+export const CategorySchema = z.object({
+    id: z.number(),
     name: z.string(),
     slug: z.string()
 })

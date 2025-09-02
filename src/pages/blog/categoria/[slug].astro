@@ -1,13 +1,21 @@
 ---
 import type { GetStaticPaths } from "astro";
-import { getCategories } from "@/lib/wp";
+import { getCategories, getCategory, getPostsByCategory } from "@/lib/wp";
 
+// Crear rutas dinámicas
 export const getStaticPaths = (async () => {
     const categories = await getCategories();
     return categories.map((category) => ({
         params: { slug: category.slug },
     }));
 }) satisfies GetStaticPaths;
+
+// Información de la categoría
+const { slug } = Astro.params;
+const category = await getCategory(slug);
+
+// Pots que pertenecen a esa categoría
+const posts = await getPostsByCategory(category.id);
 ---
 
 <h1>Desde Categoria</h1>
