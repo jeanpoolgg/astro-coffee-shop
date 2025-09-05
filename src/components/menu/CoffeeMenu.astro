@@ -9,7 +9,7 @@ const products = await getMenuItems(6);
     <h4 class="text-white font-black text-4xl uppercase text-center my-10">
         Café
     </h4>
-    <ul class="space-y-3">
+    <ul id="coffee-menu" class="space-y-3">
         {
             products.map((product) => (
                 <MenuItem
@@ -22,3 +22,15 @@ const products = await getMenuItems(6);
         }
     </ul>
 </div>
+
+<script>
+    import PhotoSwipeLightbox from "photoswipe/lightbox";
+    import "photoswipe/style.css";
+
+    const lightbox = new PhotoSwipeLightbox({
+        gallery: "#coffee-menu",
+        children: "a",
+        pswpModule: () => import("photoswipe"),
+    });
+    lightbox.init();
+</script>

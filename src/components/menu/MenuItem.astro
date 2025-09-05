@@ -1,7 +1,7 @@
 ---
 import type { FeatureImages } from "@/types";
 import { Picture } from "astro:assets";
-import { formatAmount } from "@/helpers"
+import { formatAmount } from "@/helpers";
 interface Props {
     title: string;
     description: string;
@@ -17,14 +17,21 @@ const { title, description, price, image } = Astro.props;
 >
     <div class="flex-1 flex flex-col md:flex-row gap-5 items-center">
         <div class="w-full md:w-40 lg:w-56 overflow-hidden">
-            <Picture
-                src={image.medium.url}
-                alt={`Imagen del Menú: ${title}`}
-                width={image.medium.width}
-                height={image.medium.height}
-                formats={["avif", "webp"]}
-                class="w-full h-64 md:h-40 object-cover border-8 border-white"
-            />
+            <a
+                href={image.full.url}
+                data-pswp-width={image.full.width}
+                data-pswp-height={image.full.height}
+                target="_blank"
+            >
+                <Picture
+                    src={image.medium.url}
+                    alt={`Imagen del Menú: ${title}`}
+                    width={image.medium.width}
+                    height={image.medium.height}
+                    formats={["avif", "webp"]}
+                    class="w-full h-64 md:h-40 object-cover border-8 border-white"
+                />
+            </a>
         </div>
         <div class="flex-1">
             <p class="text-white font-bold text-2xl text-center md:text-left">
