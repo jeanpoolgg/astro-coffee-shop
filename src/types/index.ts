@@ -88,3 +88,4 @@ export const MenuItemsSchema = z.array(MenuItemSchema)
 
 export type Post = z.infer<typeof PostSchema>
 export type Gallery = z.infer<typeof gallerySchema>
+export type FeatureImages = z.infer<typeof featuredImagesSchema>
