@@ -81,3 +81,13 @@ export const getPageGaleria = async () => {
     const { title: { rendered: pageTitle }, acf: { subtitle }, featured_images: { medium_large: image }, gallery } = dataAboutUs
     return { pageTitle, subtitle, image, gallery }
 }
+
+
+export const getPageMenu = async () => {
+    const response = await fetch(`${baseUrl}/pages?slug=menu`)
+    if (!response.ok) throw new Error("Failed to fetch page menu")
+    const [data] = await response.json()
+    const dataAboutUs = BaseWPSchema.parse(data)
+    const { title: { rendered: pageTitle }, acf: { subtitle }, featured_images: { medium_large: image }, content: { rendered: content } } = dataAboutUs
+    return { pageTitle, subtitle, image, content }
+}
