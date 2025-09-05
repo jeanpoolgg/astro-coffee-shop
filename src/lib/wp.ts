@@ -1,4 +1,4 @@
-import { BaseWPSchema, ProcessPageSchema, PostsSchema, PostSchema, CategoriesSlugSchema, CategorySchema, GalleryPageSchema } from "@/types"
+import { BaseWPSchema, ProcessPageSchema, PostsSchema, PostSchema, CategoriesSlugSchema, CategorySchema, GalleryPageSchema, MenuItemsSchema } from "@/types"
 
 const baseUrl = import.meta.env.WP_API_URL
 
@@ -90,4 +90,12 @@ export const getPageMenu = async () => {
     const dataAboutUs = BaseWPSchema.parse(data)
     const { title: { rendered: pageTitle }, acf: { subtitle }, featured_images: { medium_large: image }, content: { rendered: content } } = dataAboutUs
     return { pageTitle, subtitle, image, content }
+}
+
+
+export const getMenuItems = async (idCategory: number) => {
+    const response = await fetch(`${baseUrl}/products?product_categories=${idCategory}`)
+    if (!response.ok) throw new Error(`Failed to fetch products by category with id: ${idCategory}`)
+    const data = await response.json()
+    return MenuItemsSchema.parse(data)
 }
