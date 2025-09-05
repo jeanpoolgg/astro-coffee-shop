@@ -1,7 +1,36 @@
 ---
+import { getMenuItems } from "@/lib/wp";
+import MenuItem from "./MenuItem.astro";
 
+const products = await getMenuItems(7);
 ---
 
 <div>
-    <h4 class="text-white font-black text-4xl uppercase text-center my-10">Comida</h4>
+    <h4 class="text-white font-black text-4xl uppercase text-center my-10">
+        Comida
+    </h4>
+    <ul id="food-menu" class="space-y-3">
+        {
+            products.map((product) => (
+                <MenuItem
+                    title={product.title.rendered}
+                    description={product.acf.description}
+                    image={product.featured_images}
+                    price={product.acf.price}
+                />
+            ))
+        }
+    </ul>
 </div>
+
+<script>
+    import PhotoSwipeLightbox from "photoswipe/lightbox";
+    import "photoswipe/style.css";
+
+    const lightbox = new PhotoSwipeLightbox({
+        gallery: "#food-menu",
+        children: "a",
+        pswpModule: () => import("photoswipe"),
+    });
+    lightbox.init();
+</script>
