@@ -1,6 +1,7 @@
 ---
 import type { FeatureImages } from "@/types";
 import { Picture } from "astro:assets";
+import { formatAmount } from "@/helpers"
 interface Props {
     title: string;
     description: string;
@@ -35,6 +36,6 @@ const { title, description, price, image } = Astro.props;
         </div>
     </div>
     <p class="text-4xl font-black text-white text-center md:text-left">
-        {price}
+        {formatAmount(price)}
     </p>
 </li>
